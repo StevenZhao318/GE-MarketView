@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Chart, ItemSelector, SearchBar } from "./components";
+import CurPriceCard from "./components/Cards/CurPriceCard";
+
+import styles from "./App.module.css";
+
+// Mort Myre = 2970
+// Dynamite = 13573
+// dragon harpoon = 21028
+// Smouldering = 13233
+
+class App extends React.Component {
+  state = { item: "24607" };
+
+  handleItemsChange = async (itemID) => {
+    console.log("switched Item = " + itemID);
+    this.setState({ item: itemID });
+  };
+
+  render() {
+    const { item } = this.state;
+    return (
+      <div className={styles.container}>
+        <ItemSelector handleItemsChange={this.handleItemsChange} />
+        <SearchBar handleItemsChange={this.handleItemsChange} />
+        <CurPriceCard itemID={item} />
+
+        <Chart itemID={item} />
+      </div>
+    );
+  }
 }
 
 export default App;
