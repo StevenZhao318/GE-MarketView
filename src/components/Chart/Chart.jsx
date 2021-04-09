@@ -9,7 +9,7 @@ const Chart = (item) => {
 
   useEffect(() => {
     const fetchAPI = async () => {
-      const rawData = await fetchRawData(item.itemID);
+      const { data: rawData } = await fetchRawData(item.itemID);
       setRawData(rawData);
     };
     fetchAPI();

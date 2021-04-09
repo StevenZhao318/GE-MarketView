@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const urlBase5 = "https://prices.runescape.wiki/osrs/5m?id=";
-const urlBaseCur = "https://prices.runescape.wiki/osrs/latest?id=";
+const urlBase5 =
+  "https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=5m&id=";
+const urlBaseCur = "https://prices.runescape.wiki/api/v1/osrs/latest?id=";
 
 export const fetchRawData = async (itemID) => {
   let validUrl = `${urlBase5}444`;

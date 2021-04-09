@@ -16,7 +16,7 @@ const CurPriceCard = (item) => {
   useEffect(() => {
     console.log("Fetching current Price for ... " + item.itemID);
     const fetchAPI = async () => {
-      const curPriceData = await fetchCurData(item.itemID);
+      const { data: curPriceData } = await fetchCurData(item.itemID);
       setCurPriceData(curPriceData);
     };
     fetchAPI();

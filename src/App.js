@@ -4,6 +4,7 @@ import { Chart, ItemSelector, SearchBar } from "./components";
 import CurPriceCard from "./components/Cards/CurPriceCard";
 
 import styles from "./App.module.css";
+import NewChart from "./components/Chart/NewChart";
 
 // Mort Myre = 2970
 // Dynamite = 13573
@@ -25,6 +26,7 @@ class App extends React.Component {
         <ItemSelector handleItemsChange={this.handleItemsChange} />
         <SearchBar handleItemsChange={this.handleItemsChange} />
         <CurPriceCard itemID={item} />
+        <NewChart />
 
         <Chart itemID={item} />
       </div>
