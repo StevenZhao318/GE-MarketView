@@ -4,16 +4,22 @@ const urlBase5 =
   "https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=5m&id=";
 const urlBaseCur = "https://prices.runescape.wiki/api/v1/osrs/latest?id=";
 
+const itemPriceHistory =
+  "https://api.weirdgloop.org/exchange/history/osrs/all?name=";
+
 export const fetchRawData = async (itemID) => {
-  let validUrl = `${urlBase5}444`;
+  console.log(itemID);
+  let validUrl = `${itemPriceHistory}clay`;
 
   if (itemID) {
-    validUrl = `${urlBase5}${itemID}`;
+    validUrl = `${itemPriceHistory}${itemID}`;
     // console.log("the cur ID is: " + itemID);
   }
 
   try {
     const { data } = await axios.get(validUrl);
+    console.log("Fetched data: ");
+    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

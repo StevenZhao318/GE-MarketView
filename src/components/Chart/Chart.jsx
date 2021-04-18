@@ -4,30 +4,32 @@ import { fetchRawData } from "../../api";
 
 import styles from "./Chart.module.css";
 
-const Chart = (item) => {
+const Chart = ({ itemID }) => {
+  console.log(itemID);
   const [rawData, setRawData] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
-      const { data: rawData } = await fetchRawData(item.itemID);
-      setRawData(rawData);
+      const data = await fetchRawData(itemID);
+      setRawData(data[itemID]);
     };
     fetchAPI();
-  }, [item.itemID]);
+  }, [itemID]);
 
-  const lineChart = (
+  const lineChart = rawData && (
     <Line
       data={{
         labels: rawData.map((d) => {
-          const date = new Date(d.timestamp * 1000);
+          const date = new Date(d.timestamp);
           const month = date.toLocaleString("default", { month: "short" });
           const day = date.getDate();
-          const time = date.toLocaleTimeString("en-US");
-          return time + ",  " + month + " " + day;
+          const year = date.getFullYear();
+          // const time = date.toLocaleTimeString("en-US");
+          return month + " " + day + ", " + year;
         }),
         datasets: [
           {
-            data: rawData.map((d) => d.avgHighPrice),
+            data: rawData.map((d) => d.price),
             label: "High",
             borderColor: "#3333ff",
             fill: false,
@@ -35,15 +37,15 @@ const Chart = (item) => {
             pointRadius: 2,
             borderWidth: 2,
           },
-          {
-            data: rawData.map((d) => d.avgLowPrice),
-            label: "Low",
-            borderColor: "red",
-            fill: false,
-            spanGaps: true,
-            pointRadius: 2,
-            borderWidth: 2,
-          },
+          // {
+          //   data: rawData.map((d) => d.avgLowPrice),
+          //   label: "Low",
+          //   borderColor: "red",
+          //   fill: false,
+          //   spanGaps: true,
+          //   pointRadius: 2,
+          //   borderWidth: 2,
+          // },
         ],
       }}
     ></Line>

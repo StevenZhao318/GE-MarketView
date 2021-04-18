@@ -19,9 +19,9 @@ const SearchBar = ({ handleItemsChange }) => {
         disableClearable
         options={itemNames.map((option) => option.name)}
         onChange={(event, value) => {
-          const id = nameToID[value];
-          console.log("Selected Item: " + value + " ID: " + id);
-          handleItemsChange(id);
+          // const id = nameToID[value];
+          // console.log("Selected Item: " + value + " ID: " + id);
+          handleItemsChange(value);
         }}
         filterOptions={filterLimit}
         renderInput={(params) => (

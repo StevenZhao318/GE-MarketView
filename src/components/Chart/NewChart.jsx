@@ -23,6 +23,8 @@ import RangeSelector, {
   Behavior,
 } from "devextreme-react/range-selector";
 
+import styles from "./Chart.module.css";
+
 class NewChart extends React.Component {
   constructor(props) {
     super(props);
@@ -34,7 +36,6 @@ class NewChart extends React.Component {
   }
 
   render() {
-
     /**
      * https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxChart/Configuration/tooltip/#customizeTooltip
      */
@@ -47,10 +48,11 @@ class NewChart extends React.Component {
     };
 
     return (
-      <div id="price-chart">
+      <div id="price-chart" className={styles.container}>
         <Chart
           id="zoomedChart"
           dataSource={dataSource}
+
           // title=""
         >
           <Series type="line" valueField="Open" argumentField="Date">
