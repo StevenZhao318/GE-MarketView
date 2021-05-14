@@ -12,7 +12,7 @@ import NewChart from "./components/Chart/NewChart";
 // Smouldering = 13233
 
 class App extends React.Component {
-  state = { item: "clay" };
+  state = { item: "Clay" };
 
   handleItemsChange = async (itemID) => {
     console.log("switched Item = " + itemID);
@@ -26,9 +26,10 @@ class App extends React.Component {
         {/* <ItemSelector handleItemsChange={this.handleItemsChange} /> */}
         <SearchBar handleItemsChange={this.handleItemsChange} />
         {/* <CurPriceCard itemID={item} /> */}
-        <NewChart />
-
-        <Chart itemID={item} />
+        {/* <NewChart item={"item"} /> */}
+        {/* 
+        <Chart itemID={item} /> */}
+        <NewChart itemID={item} />
       </div>
     );
   }

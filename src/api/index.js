@@ -9,7 +9,7 @@ const itemPriceHistory =
 
 export const fetchRawData = async (itemID) => {
   console.log(itemID);
-  let validUrl = `${itemPriceHistory}clay`;
+  let validUrl = `${itemPriceHistory}Clay`;
 
   if (itemID) {
     validUrl = `${itemPriceHistory}${itemID}`;

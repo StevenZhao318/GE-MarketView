@@ -1,103 +1,66 @@
-import React from "react";
-import { dataSource } from "./data.js";
+import React, { useState, useEffect } from "react";
 
-import Chart, {
-  Series,
-  Aggregation,
-  ArgumentAxis,
-  Grid,
-  Label,
-  ValueAxis,
-  Margin,
-  Legend,
-  Tooltip,
-} from "devextreme-react/chart";
+import { render } from "react-dom";
+import Highcharts from "highcharts/highstock";
+import HighchartsReact from "highcharts-react-official";
+import { fetchRawData } from "../../api";
 
-import RangeSelector, {
-  Size,
-  Scale,
-  Chart as RsChart,
-  ValueAxis as RsValueAxis,
-  Series as RsSeries,
-  Aggregation as RsAggregation,
-  Behavior,
-} from "devextreme-react/range-selector";
+const options = {
+  title: {
+    text: "My chart",
+  },
+  series: [
+    {
+      data: [
+        [1483401600000, 115.8],
+        [1483488000000, 115.85],
+        [1483574400000, 115.92],
+        [1483660800000, 116.78],
+        [1483920000000, 117.95],
+        [1484006400000, 118.77],
+        [1484092800000, 118.74],
+        [1484179200000, 118.9],
+        [1484265600000, 119.11],
+      ],
+      type: "spline",
+      name: "AAPL Stock Price",
+      id: "appl",
+    },
+  ],
+};
 
-import styles from "./Chart.module.css";
+const NewChart = ({ itemID }) => {
+  console.log(itemID);
+  const [data, setData] = useState([]);
+  const [chartOptions, setChartOptions] = useState(options);
 
-class NewChart extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      visualRange: {},
+  useEffect(() => {
+    const fetchAPI = async () => {
+      const rawData = await fetchRawData(itemID);
+
+      const data = rawData[itemID].map((obj) => [obj.timestamp, obj.price]);
+
+      setChartOptions({
+        ...chartOptions,
+        title: { text: "Chart" },
+        series: [{ data: data, type: "spline", name: itemID, id: itemID }],
+      });
+
+      // setData(data);
     };
+    fetchAPI();
+  }, [itemID]);
 
-    this.updateVisualRange = this.updateVisualRange.bind(this);
-  }
-
-  render() {
-    /**
-     * https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxChart/Configuration/tooltip/#customizeTooltip
-     */
-    const toolTip = (pointInfo) => {
-      const time = pointInfo.argument.toLocaleTimeString("en-US");
-      const date = pointInfo.argument.toLocaleDateString("en-US");
-      return {
-        text: time + ", " + date + " \n " + "High Price: " + pointInfo.value,
-      };
-    };
-
-    return (
-      <div id="price-chart" className={styles.container}>
-        <Chart
-          id="zoomedChart"
-          dataSource={dataSource}
-
-          // title=""
-        >
-          <Series type="line" valueField="Open" argumentField="Date">
-            <Aggregation enabled={false} />
-          </Series>
-          <ArgumentAxis
-            visualRange={this.state.visualRange}
-            valueMarginsEnabled={false}
-            argumentType="datetime"
-          >
-            <Grid visible={true} />
-            <Label visible={true} />
-          </ArgumentAxis>
-          <ValueAxis valueType="numeric" />
-          <Margin right={10} />
-          <Legend visible={false} />
-          <Tooltip enabled={true} customizeTooltip={toolTip} />
-        </Chart>
-        <RangeSelector
-          dataSource={dataSource}
-          onValueChanged={this.updateVisualRange}
-        >
-          <Size height={120} />
-          <RsChart>
-            <RsValueAxis valueType="numeric" />
-            <RsSeries type="line" valueField="Open" argumentField="Date">
-              <RsAggregation enabled="false" />
-            </RsSeries>
-          </RsChart>
-          <Scale
-            placeholderHeight={20}
-            minorTickInterval="day"
-            tickInterval="month"
-            valueType="datetime"
-            aggregationInterval="week"
-          />
-          <Behavior snapToTicks={false} callValueChanged="onMoving" />
-        </RangeSelector>
-      </div>
-    );
-  }
-
-  updateVisualRange(e) {
-    this.setState({ visualRange: e.value });
-  }
-}
+  return (
+    <div>
+      <HighchartsReact
+        highcharts={Highcharts}
+        options={chartOptions}
+        constructorType={"stockChart"}
+        // constructorType={"stockChart"}
+      />
+    </div>
+  );
+};
 
 export default NewChart;
