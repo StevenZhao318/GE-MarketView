@@ -28,7 +28,7 @@ export default function App() {
       {/* <NewChart item={"item"} /> */}
       {/* 
         <Chart itemID={item} /> */}
-      <NewChart itemID={item} />
+      <NewChart itemID={item} styles={{ display: 'block' }} />
     </div>
   );
 }

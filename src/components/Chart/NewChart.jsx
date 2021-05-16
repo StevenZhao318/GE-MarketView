@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { render } from "react-dom";
-import Highcharts from "highcharts/highstock";
-import HighchartsReact from "highcharts-react-official";
-import { fetchRawData } from "../../api";
+import Highcharts from 'highcharts/highstock';
+import HighchartsReact from 'highcharts-react-official';
+import { fetchRawData } from '../../api';
+
+import { Box } from '@chakra-ui/react';
+
+import styles from './Chart.module.css';
 
 const options = {
   title: {
-    text: "My chart",
+    text: 'My chart',
   },
   series: [
     {
@@ -22,11 +25,21 @@ const options = {
         [1484179200000, 118.9],
         [1484265600000, 119.11],
       ],
-      type: "spline",
-      name: "AAPL Stock Price",
-      id: "appl",
+      type: 'spline',
+      name: 'AAPL Stock Price',
+      id: 'clay',
+      color: '#3375cc',
     },
   ],
+  credits: {
+    enabled: false,
+  },
+  tooltip: {
+    pointFormat: '{series.name}: <b>{point.y:,.0f}</b><br/>',
+  },
+  yAxis: {
+    opposite: false,
+  },
 };
 
 const NewChart = ({ itemID }) => {
@@ -43,23 +56,28 @@ const NewChart = ({ itemID }) => {
       setChartOptions({
         ...chartOptions,
         title: { text: itemID },
-        series: [{ data: data, type: "spline", name: itemID, id: itemID }],
+        series: [
+          {
+            data: data,
+            type: 'spline',
+            name: itemID,
+            id: itemID,
+            color: '#3375cc',
+          },
+        ],
       });
-
-      // setData(data);
     };
     fetchAPI();
   }, [itemID]);
 
   return (
-    <div>
+    <Box className={styles.container}>
       <HighchartsReact
         highcharts={Highcharts}
         options={chartOptions}
-        constructorType={"stockChart"}
-        // constructorType={"stockChart"}
+        constructorType={'stockChart'}
       />
-    </div>
+    </Box>
   );
 };
 
