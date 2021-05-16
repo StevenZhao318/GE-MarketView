@@ -42,7 +42,7 @@ const NewChart = ({ itemID }) => {
 
       setChartOptions({
         ...chartOptions,
-        title: { text: "Chart" },
+        title: { text: itemID },
         series: [{ data: data, type: "spline", name: itemID, id: itemID }],
       });
 
