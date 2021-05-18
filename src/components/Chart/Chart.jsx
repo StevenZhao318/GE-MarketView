@@ -74,10 +74,10 @@ const Chart = ({ itemID }) => {
     const fetchAPI = async () => {
       const ID = nameToID[itemID];
       console.log('itemID is: ' + ID + ' for item ->' + itemID);
-      const rawData = await fetchRawData(itemID);
+      const rawData = await fetchRawData(ID);
 
-      const data = rawData[itemID].map((obj) => [obj.timestamp, obj.price]);
-      const volume = rawData[itemID].map((obj) => [obj.timestamp, obj.volume]);
+      const data = rawData[ID].map((obj) => [obj.timestamp, obj.price]);
+      const volume = rawData[ID].map((obj) => [obj.timestamp, obj.volume]);
       console.log(volume);
 
       setChartOptions({

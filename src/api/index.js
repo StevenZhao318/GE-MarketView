@@ -5,11 +5,11 @@ const urlBase5 =
 const urlBaseCur = 'https://prices.runescape.wiki/api/v1/osrs/latest?id=';
 
 const itemPriceHistory =
-  'https://api.weirdgloop.org/exchange/history/osrs/all?name=';
+  'https://api.weirdgloop.org/exchange/history/osrs/all?id=';
 
 export const fetchRawData = async (itemID) => {
   console.log(itemID);
-  let validUrl = `${itemPriceHistory}Clay`;
+  let validUrl = `${itemPriceHistory}573`;
 
   if (itemID) {
     validUrl = `${itemPriceHistory}${itemID}`;
