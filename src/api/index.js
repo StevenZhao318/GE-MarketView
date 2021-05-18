@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
 const urlBase5 =
-  "https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=5m&id=";
-const urlBaseCur = "https://prices.runescape.wiki/api/v1/osrs/latest?id=";
+  'https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=5m&id=';
+const urlBaseCur = 'https://prices.runescape.wiki/api/v1/osrs/latest?id=';
 
 const itemPriceHistory =
-  "https://api.weirdgloop.org/exchange/history/osrs/all?name=";
+  'https://api.weirdgloop.org/exchange/history/osrs/all?name=';
 
 export const fetchRawData = async (itemID) => {
   console.log(itemID);
@@ -18,7 +18,7 @@ export const fetchRawData = async (itemID) => {
 
   try {
     const { data } = await axios.get(validUrl);
-    console.log("Fetched data: ");
+    console.log('Fetched data: ');
     console.log(data);
     return data;
   } catch (error) {

@@ -3,10 +3,13 @@ import React, { useState, useEffect } from 'react';
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 import { fetchRawData } from '../../api';
-
 import { Box } from '@chakra-ui/react';
-
 import styles from './Chart.module.css';
+
+import { itemNames, nameToID } from '../../data/ItemList';
+
+require('highcharts/indicators/indicators')(Highcharts);
+require('highcharts/indicators/trendline')(Highcharts);
 
 const color = '#3375cc';
 
@@ -29,11 +32,12 @@ const options = {
   tooltip: {
     pointFormat:
       '<span style="color:' +
-      color +
+      '{series.color}' +
       '">' +
       '●' +
       '</span> {series.name}: <b>{point.y:,.0f}</b><br/>',
   },
+
   yAxis:
     // { opposite: false },
     [
@@ -68,6 +72,8 @@ const Chart = ({ itemID }) => {
 
   useEffect(() => {
     const fetchAPI = async () => {
+      const ID = nameToID[itemID];
+      console.log('itemID is: ' + ID + ' for item ->' + itemID);
       const rawData = await fetchRawData(itemID);
 
       const data = rawData[itemID].map((obj) => [obj.timestamp, obj.price]);
@@ -83,6 +89,8 @@ const Chart = ({ itemID }) => {
             type: 'spline',
             name: itemID,
             id: itemID,
+            // showCheckbox: true,
+            // selected: true,
             color: color,
           },
           {
@@ -91,8 +99,21 @@ const Chart = ({ itemID }) => {
             lineWidth: 1,
             crisp: false,
             data: volume,
+            color: '#75CC33',
             yAxis: 1,
           },
+          // {
+          //   type: 'sma',
+          //   color: '#CC3375',
+          //   name: '30-Day Average',
+          //   linkedTo: itemID,
+          //   dashStyle: 'ShortDash',
+          //   params: {
+          //     period: 30,
+          //   },
+          //   yAxis: 0,
+          //   zAxis: 2,
+          // },
         ],
       });
     };
