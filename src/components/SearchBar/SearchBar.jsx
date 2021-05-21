@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete, {
   createFilterOptions,
 } from '@material-ui/lab/Autocomplete';
+import { Text } from '@chakra-ui/react';
 import { Icon, Typography } from '@material-ui/core';
 import { itemNames, nameToID } from '../../data/ItemList';
 
@@ -17,8 +18,8 @@ const getIconFromID = (id) => {
     <img
       src={endpoint + id + '.png'}
       alt='iconImage'
-      width='28px'
-      height='28px'
+      width='35px'
+      height='35px'
     />
   );
 };
@@ -39,11 +40,16 @@ const SearchBar = ({ handleItemsChange }) => {
         renderOption={(option) => (
           <>
             <Icon
-              style={{ width: '28px', height: '28px', paddingRight: '10px' }}
+              style={{
+                width: '35px',
+                height: '35px',
+                paddingRight: '10px',
+                paddingTop: '5px',
+              }}
             >
               {getIconFromID(option.id)}
             </Icon>
-            <Typography style={{ fontSize: '18px' }}>{option.name}</Typography>
+            <Text style={{ fontSize: '16px' }}>{option.name}</Text>
           </>
         )}
         filterOptions={filterLimit}
@@ -51,12 +57,11 @@ const SearchBar = ({ handleItemsChange }) => {
           <TextField
             {...params}
             label='Search Item'
-            margin='normal'
             variant='outlined'
             InputProps={{
               ...params.InputProps,
               type: 'search',
-              style: { fontSize: '18px' },
+              style: { fontSize: '16px' },
             }}
           />
         )}
