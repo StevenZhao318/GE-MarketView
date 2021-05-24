@@ -9,18 +9,13 @@ import { Icon, Typography } from '@material-ui/core';
 import { itemNames, nameToID } from '../../data/ItemList';
 
 const filterLimit = createFilterOptions({
-  limit: 12,
+  limit: 10,
 });
 
 const getIconFromID = (id) => {
   const endpoint = 'https://www.osrsbox.com/osrsbox-db/items-icons/';
   return (
-    <img
-      src={endpoint + id + '.png'}
-      alt='iconImage'
-      width='35px'
-      height='35px'
-    />
+    <img src={endpoint + id + '.png'} alt='iconImage' width='28' height='28' />
   );
 };
 
@@ -28,23 +23,20 @@ const SearchBar = ({ handleItemsChange }) => {
   return (
     <div style={{ width: 500 }}>
       <Autocomplete
-        // freeSolo
+        defaultValue={[]}
         disableClearable
-        options={itemNames} //.map((option) => option.name)
+        options={itemNames}
         getOptionLabel={(option) => option.name}
         onChange={(event, value) => {
-          // const id = nameToID[value];
-          // console.log("Selected Item: " + value + " ID: " + id);
           handleItemsChange(value.name);
         }}
         renderOption={(option) => (
           <>
             <Icon
               style={{
-                width: '35px',
-                height: '35px',
+                width: 'auto',
+                height: '100%',
                 paddingRight: '10px',
-                paddingTop: '5px',
               }}
             >
               {getIconFromID(option.id)}
@@ -53,6 +45,7 @@ const SearchBar = ({ handleItemsChange }) => {
           </>
         )}
         filterOptions={filterLimit}
+        freeSolo
         renderInput={(params) => (
           <TextField
             {...params}

@@ -16,17 +16,16 @@ export default function App() {
 
   return (
     <Box>
-      <Center>
+      <Box p='50px 0 0 50px'>
         <SearchBar handleItemsChange={handleItemsChange} />
-      </Center>
+      </Box>
       {/* <CurPriceCard itemID={item} /> */}
-
-      <Flex flexDir={{ lg: 'row', base: 'column' }}>
+      <Flex dir={{ lg: 'row', base: 'column' }}>
         <Center w='80%' m='40px'>
           <Chart itemID={item} />
         </Center>
         <Center
-          alignSelf='center'
+          as='center'
           bg='grey'
           w={{ lg: '10%', base: '90%' }}
           minH={{ lg: '500', base: '200px' }}
