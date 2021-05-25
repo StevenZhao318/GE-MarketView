@@ -66,19 +66,17 @@ const options = {
 };
 
 const Chart = ({ itemID }) => {
-  console.log(itemID);
   const [data, setData] = useState([]);
   const [chartOptions, setChartOptions] = useState(options);
 
   useEffect(() => {
     const fetchAPI = async () => {
       const ID = nameToID[itemID];
-      console.log('itemID is: ' + ID + ' for item ->' + itemID);
+      // console.log('itemID is: ' + ID + ' for item ->' + itemID);
       const rawData = await fetchRawData(ID);
 
       const data = rawData[ID].map((obj) => [obj.timestamp, obj.price]);
       const volume = rawData[ID].map((obj) => [obj.timestamp, obj.volume]);
-      console.log(volume);
 
       setChartOptions({
         ...chartOptions,

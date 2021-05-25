@@ -46,6 +46,7 @@ const SearchBar = ({ handleItemsChange }) => {
         )}
         filterOptions={filterLimit}
         freeSolo
+        autoHighlight
         renderInput={(params) => (
           <TextField
             {...params}
