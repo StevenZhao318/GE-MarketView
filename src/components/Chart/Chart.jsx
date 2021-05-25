@@ -80,7 +80,10 @@ const Chart = ({ itemID }) => {
 
       setChartOptions({
         ...chartOptions,
-        title: { text: itemID },
+        title: {
+          text: itemID,
+          style: { fontSize: '22px', fontWeight: 'bold' },
+        },
         series: [
           {
             data: data,

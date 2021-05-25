@@ -10,11 +10,14 @@ import {
   Icon,
   Button,
   HStack,
+  Stack,
+  Heading,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
-
 import { fetchItemInfo } from '../../api';
 import { itemNames, nameToID } from '../../data/ItemList';
+import MembersIcon from '../../assets/members-icon.png';
+import NonMembersIcon from '../../assets/nonmembers-icon.png';
 
 const ItemInfo = ({ item }) => {
   const [itemSummary, setItemSummary] = useState({});
@@ -37,13 +40,23 @@ const ItemInfo = ({ item }) => {
 
   return (
     <Box>
+      <Heading as='h2' size='md'>
+        {item}
+      </Heading>
       <Box>{getIconFromID(itemSummary.id)}</Box>
-      <Text>Item Name: {item}</Text>
       <Text>High Alch Value: {itemSummary.highalch}</Text>
       <Text>Low Alch Value: {itemSummary.lowalch}</Text>
-      <Text>Members?: {itemSummary.members ? 'true' : 'false'}</Text>
 
-      <HStack spacing='10px'>
+      <Flex justifyContent='center' mb='30px'>
+        <Text marginRight='10px'>Members: </Text>
+        {itemSummary.members ? (
+          <Image src={MembersIcon} h='15px' alignSelf='center' />
+        ) : (
+          <Image src={NonMembersIcon} h='15px' alignSelf='center' />
+        )}
+      </Flex>
+
+      <Stack maxW='150px' spacing='10px' justifyContent='center' display='flex'>
         <Button>
           <Link
             w='100px'
@@ -74,7 +87,7 @@ const ItemInfo = ({ item }) => {
             Official <ExternalLinkIcon mx='2px' marginBottom='5px' />
           </Link>
         </Button>
-      </HStack>
+      </Stack>
     </Box>
   );
 };
