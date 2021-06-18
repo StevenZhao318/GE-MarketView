@@ -7,6 +7,7 @@ import Autocomplete, {
 import { Text } from '@chakra-ui/react';
 import { Icon, Typography } from '@material-ui/core';
 import { itemNames, nameToID } from '../../data/ItemList';
+import { chakra, Box } from '@chakra-ui/react';
 
 const filterLimit = createFilterOptions({
   limit: 10,
@@ -19,9 +20,9 @@ const getIconFromID = (id) => {
   );
 };
 
-const SearchBar = ({ handleItemsChange }) => {
+export default chakra(function SearchBar({ handleItemsChange, className }) {
   return (
-    <div style={{ width: 500 }}>
+    <Box className={className} w='500px'>
       <Autocomplete
         defaultValue={[]}
         disableClearable
@@ -60,8 +61,6 @@ const SearchBar = ({ handleItemsChange }) => {
           />
         )}
       />
-    </div>
+    </Box>
   );
-};
-
-export default SearchBar;
+});

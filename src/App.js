@@ -15,7 +15,7 @@ export default function App() {
   };
 
   return (
-    <Box>
+    <Box h='100%'>
       <Box p='50px 0 0 50px'>
         <SearchBar handleItemsChange={handleItemsChange} />
       </Box>

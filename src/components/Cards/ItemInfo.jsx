@@ -39,7 +39,7 @@ const ItemInfo = ({ item }) => {
   }, [item]);
 
   return (
-    <Box>
+    <Box p='20px'>
       <Heading as='h2' size='md'>
         {item}
       </Heading>
