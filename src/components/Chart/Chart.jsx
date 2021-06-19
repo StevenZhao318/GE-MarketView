@@ -21,7 +21,7 @@ const options = {
     {
       data: [],
       type: 'spline',
-      name: 'AAPL Stock Price',
+      name: 'Price',
       id: 'clay',
       color: color,
     },

@@ -24,7 +24,9 @@ const ItemInfo = ({ item }) => {
 
   const getIconFromID = (id) => {
     const endpoint = 'https://www.osrsbox.com/osrsbox-db/items-icons/';
-    return <Image src={endpoint + id + '.png'} alt='iconImage' w='30' h='30' />;
+    return (
+      <Image src={endpoint + id + '.png'} alt='iconImage' w='40px' h='40px' />
+    );
   };
 
   useEffect(() => {
@@ -39,16 +41,26 @@ const ItemInfo = ({ item }) => {
   }, [item]);
 
   return (
-    <Box p='20px'>
-      <Heading as='h2' size='md'>
+    <VStack w='100%' h='100%' bg='background.200' justify='center'>
+      <Heading as='h2' size='md' textColor='white'>
         {item}
       </Heading>
       <Box>{getIconFromID(itemSummary.id)}</Box>
-      <Text>High Alch Value: {itemSummary.highalch}</Text>
-      <Text>Low Alch Value: {itemSummary.lowalch}</Text>
+
+      <Text textColor='whiteAlpha.800'>
+        High Alch Value: {itemSummary.highalch?.toLocaleString()}
+      </Text>
+      <Text textColor='whiteAlpha.800'>
+        Low Alch Value: {itemSummary.lowalch?.toLocaleString()}
+      </Text>
+      <Text textColor='whiteAlpha.800'>
+        Buy Limit: {itemSummary.buy_limit?.toLocaleString()}
+      </Text>
 
       <Flex justifyContent='center' mb='30px'>
-        <Text marginRight='10px'>Members: </Text>
+        <Text textColor='whiteAlpha.800' marginRight='10px'>
+          Members:{' '}
+        </Text>
         {itemSummary.members ? (
           <Image src={MembersIcon} h='15px' alignSelf='center' />
         ) : (
@@ -88,7 +100,7 @@ const ItemInfo = ({ item }) => {
           </Link>
         </Button>
       </Stack>
-    </Box>
+    </VStack>
   );
 };
 
