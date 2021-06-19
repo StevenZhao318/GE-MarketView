@@ -42,7 +42,7 @@ const ItemInfo = ({ item }) => {
 
   return (
     <VStack w='100%' h='100%' bg='background.200' justify='center'>
-      <Heading as='h2' size='md' textColor='white'>
+      <Heading as='h2' size='md' textColor='whiteAlpha.900'>
         {item}
       </Heading>
       <Box>{getIconFromID(itemSummary.id)}</Box>

@@ -16,6 +16,7 @@ const color = '#3375cc';
 const options = {
   title: {
     text: 'My chart',
+    y: 30,
   },
   series: [
     {
@@ -29,6 +30,36 @@ const options = {
   credits: {
     enabled: false,
   },
+  labels: {
+    style: {
+      color: 'red',
+    },
+  },
+  rangeSelector: {
+    buttonTheme: {
+      fill: '#505053',
+      stroke: '#000000',
+      style: {
+        color: '#CCC',
+      },
+      states: {
+        hover: {
+          fill: '#707073',
+          stroke: '#000000',
+          style: {
+            color: 'white',
+          },
+        },
+        select: {
+          fill: '#335CAD',
+          stroke: '#000000',
+          style: {
+            color: 'white',
+          },
+        },
+      },
+    },
+  },
   tooltip: {
     pointFormat:
       '<span style="color:' +
@@ -36,6 +67,11 @@ const options = {
       '">' +
       '●' +
       '</span> {series.name}: <b>{point.y:,.0f}</b><br/>',
+
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
+    style: {
+      color: '#F0F0F0',
+    },
   },
 
   yAxis:
@@ -44,25 +80,47 @@ const options = {
       {
         labels: {
           align: 'left',
+          style: { color: '#FFFFFFCC' },
         },
         title: {
           text: 'Price',
+          style: { color: '#FFFFFFCC' },
         },
         height: '60%',
+        gridLineColor: '#707073',
       },
       {
         labels: {
           align: 'left',
+          style: { color: '#FFFFFFCC' },
         },
         title: {
           text: 'Volume',
+          style: { color: '#FFFFFFCC' },
         },
+        gridLineColor: '#707073',
         top: '65%',
         height: '35%',
         offset: 0,
       },
     ],
-  chart: { height: '50%' },
+  chart: { height: '50%', backgroundColor: '#262A2E' },
+  navigator: {
+    handles: {
+      backgroundColor: '#666',
+      borderColor: '#AAA',
+    },
+  },
+  scrollbar: {
+    barBackgroundColor: '#808083',
+    barBorderColor: '#808083',
+    buttonArrowColor: '#CCC',
+    buttonBackgroundColor: '#606063',
+    buttonBorderColor: '#606063',
+    rifleColor: '#FFF',
+    trackBackgroundColor: '#404043',
+    trackBorderColor: '#404043',
+  },
 };
 
 const Chart = ({ itemID }) => {
@@ -82,7 +140,7 @@ const Chart = ({ itemID }) => {
         ...chartOptions,
         title: {
           text: itemID,
-          style: { fontSize: '22px', fontWeight: 'bold' },
+          style: { fontSize: '22px', fontWeight: 'bold', color: '#FFFFFFEB' },
         },
         series: [
           {
