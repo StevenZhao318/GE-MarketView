@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
   option: {
     '&[data-focus="true"]': {
-      backgroundColor: '#eeeee4 !important',
+      backgroundColor: '#3E454D !important',
     },
     // '&[aria-selected="true"]': {
     //   backgroundColor: '#ebb678 !important',
@@ -55,13 +55,7 @@ export default chakra(function SearchBar({ handleItemsChange, className }) {
   const styles = useStyles();
 
   return (
-    <Box
-      className={className}
-      w='500px'
-      bgColor='#262A2E'
-      border={'1px solid red'}
-      p='10px'
-    >
+    <Box className={className} w='500px' bgColor='#262A2E'>
       <Autocomplete
         defaultValue={[]}
         disableClearable

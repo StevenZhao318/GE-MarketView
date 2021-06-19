@@ -24,9 +24,7 @@ const ItemInfo = ({ item }) => {
 
   const getIconFromID = (id) => {
     const endpoint = 'https://www.osrsbox.com/osrsbox-db/items-icons/';
-    return (
-      <Image src={endpoint + id + '.png'} alt='iconImage' w='40px' h='40px' />
-    );
+    return <Image src={endpoint + id + '.png'} alt='iconImage' h='100%' />;
   };
 
   useEffect(() => {
@@ -45,7 +43,7 @@ const ItemInfo = ({ item }) => {
       <Heading as='h2' size='md' textColor='whiteAlpha.900'>
         {item}
       </Heading>
-      <Box>{getIconFromID(itemSummary.id)}</Box>
+      <Box h='45px'>{getIconFromID(itemSummary.id)}</Box>
 
       <Text textColor='whiteAlpha.800'>
         High Alch Value: {itemSummary.highalch?.toLocaleString()}

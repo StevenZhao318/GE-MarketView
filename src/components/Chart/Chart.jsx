@@ -16,7 +16,13 @@ const color = '#3375cc';
 const options = {
   title: {
     text: 'My chart',
-    y: 30,
+    y: 35,
+    style: {
+      fontSize: '26px',
+      fontWeight: 'bold',
+      color: '#FFFFFFEB',
+      textTransform: 'capitalize',
+    },
   },
   series: [
     {
@@ -140,7 +146,6 @@ const Chart = ({ itemID }) => {
         ...chartOptions,
         title: {
           text: itemID,
-          style: { fontSize: '22px', fontWeight: 'bold', color: '#FFFFFFEB' },
         },
         series: [
           {
