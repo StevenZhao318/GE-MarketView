@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete, {
   createFilterOptions,
@@ -27,6 +27,15 @@ const useStyles = makeStyles({
     //   backgroundColor: '#ebb678 !important',
     // },
   },
+  clearIndicatorDirty: {
+    color: 'gray',
+  },
+  noOptions: {
+    color: '#FFFFFFCC',
+  },
+  endAdornment: {
+    display: 'none',
+  },
   inputRoot: {
     '& .MuiOutlinedInput-notchedOutline': {
       borderColor: '#B9B9BA',
@@ -49,11 +58,30 @@ const getIconFromID = (id) => {
 
 export default chakra(function SearchBar({ handleItemsChange, className }) {
   const styles = useStyles();
+  const [open, setOpen] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   return (
     <Box className={className} w='100%' bgColor='#262A2E'>
       <Autocomplete
+        open={open}
+        onOpen={() => {
+          if (inputValue) {
+            setOpen(true);
+          }
+        }}
+        onClose={() => {
+          setOpen(false);
+        }}
+        inputValue={inputValue}
+        onInputChange={(e, value, reason) => {
+          setInputValue(value);
+          if (!value) {
+            setOpen(false);
+          }
+        }}
         defaultValue={[]}
+        autoHighlight
         disableClearable
         options={itemNames}
         classes={styles}
@@ -78,7 +106,6 @@ export default chakra(function SearchBar({ handleItemsChange, className }) {
           </Flex>
         )}
         filterOptions={filterLimit}
-        freeSolo
         renderInput={(params) => (
           <TextField
             {...params}
