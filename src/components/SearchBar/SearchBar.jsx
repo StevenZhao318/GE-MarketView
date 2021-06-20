@@ -1,12 +1,11 @@
-/* eslint-disable no-use-before-define */
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete, {
   createFilterOptions,
 } from '@material-ui/lab/Autocomplete';
 import { Text, Flex } from '@chakra-ui/react';
-import { Icon, Typography } from '@material-ui/core';
-import { itemNames, nameToID } from '../../data/ItemList';
+import { Icon } from '@material-ui/core';
+import { itemNames } from '../../data/ItemList';
 import { chakra, Box } from '@chakra-ui/react';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -27,9 +26,6 @@ const useStyles = makeStyles({
     // '&[aria-selected="true"]': {
     //   backgroundColor: '#ebb678 !important',
     // },
-  },
-  inputLabelRoot: {
-    fontColor: '#FFE37E',
   },
   inputRoot: {
     '& .MuiOutlinedInput-notchedOutline': {
@@ -55,13 +51,13 @@ export default chakra(function SearchBar({ handleItemsChange, className }) {
   const styles = useStyles();
 
   return (
-    <Box className={className} w='500px' bgColor='#262A2E'>
+    <Box className={className} w='100%' bgColor='#262A2E'>
       <Autocomplete
         defaultValue={[]}
         disableClearable
         options={itemNames}
         classes={styles}
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={(option) => option.name || ''}
         onChange={(event, value) => {
           handleItemsChange(value.name);
         }}
@@ -87,7 +83,6 @@ export default chakra(function SearchBar({ handleItemsChange, className }) {
           <TextField
             {...params}
             label='Search Item'
-            fontColor='white'
             variant='outlined'
             InputProps={{
               ...params.InputProps,

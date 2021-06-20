@@ -8,22 +8,48 @@ const theme = extendTheme({
   },
   components: {
     Button: {},
+    Heading: {
+      defaultProps: {},
+      sizes: {
+        xs: {
+          fontSize: '20px',
+          color: 'bodyWhite',
+        },
+        sm: {
+          fontSize: '24px',
+          color: 'bodyWhite',
+        },
+        md: {
+          fontSize: '32px',
+          color: 'bodyWhite',
+        },
+        lg: {
+          fontSize: '52px', // 52px
+          fontWeight: 700,
+          color: 'bodyWhite',
+        },
+        h4: {
+          fontSize: '21px',
+          fontWeight: 700,
+          color: 'bodyWhite',
+        },
+        h5: {
+          fontSize: '16px',
+          fontWeight: 700,
+          color: 'bodyWhite',
+        },
+      },
+    },
   },
   colors: {
-    white: {
-      border: '#B9B9BA',
-    },
+    bodyWhite: '#FFFFFFCC',
     background: {
       0: '#40444B', // background - lightest
       100: '#36393F',
       200: '#262A2E', //
     },
-    transparent: 'transparent',
-    black: '#000',
     rsYellow: '#FFE37E',
     error: 'red',
-    green: '#15CD83',
-    darkNavy: 'rgb( 31, 48, 88 )',
   },
 });
 

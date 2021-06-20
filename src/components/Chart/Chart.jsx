@@ -4,7 +4,6 @@ import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 import { fetchRawData } from '../../api';
 import { Box } from '@chakra-ui/react';
-import styles from './Chart.module.css';
 
 import { itemNames, nameToID } from '../../data/ItemList';
 
@@ -185,7 +184,7 @@ const Chart = ({ itemID }) => {
   }, [itemID]);
 
   return (
-    <Box className={styles.container}>
+    <Box h='100%' w='100%'>
       <HighchartsReact
         highcharts={Highcharts}
         options={chartOptions}

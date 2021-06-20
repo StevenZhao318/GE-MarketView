@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import {
   Box,
-  Center,
   VStack,
   Flex,
   Text,
   Link,
   Image,
-  Icon,
   Button,
-  HStack,
   Stack,
   Heading,
+  chakra,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { fetchItemInfo } from '../../api';
@@ -19,7 +17,7 @@ import { itemNames, nameToID } from '../../data/ItemList';
 import MembersIcon from '../../assets/members-icon.png';
 import NonMembersIcon from '../../assets/nonmembers-icon.png';
 
-const ItemInfo = ({ item }) => {
+export default chakra(function ItemInfo({ item, className }) {
   const [itemSummary, setItemSummary] = useState({});
 
   const getIconFromID = (id) => {
@@ -39,8 +37,15 @@ const ItemInfo = ({ item }) => {
   }, [item]);
 
   return (
-    <VStack w='100%' h='100%' bg='background.200' justify='center'>
-      <Heading as='h2' size='md' textColor='whiteAlpha.900'>
+    <VStack
+      className={className}
+      w='100%'
+      h='100%'
+      bg='background.200'
+      justify='center'
+      py='30px'
+    >
+      <Heading size='sm' textColor='whiteAlpha.900' textAlign='center'>
         {item}
       </Heading>
       <Box h='45px'>{getIconFromID(itemSummary.id)}</Box>
@@ -55,7 +60,7 @@ const ItemInfo = ({ item }) => {
         Buy Limit: {itemSummary.buy_limit?.toLocaleString()}
       </Text>
 
-      <Flex justifyContent='center' mb='30px'>
+      <Flex justifyContent='center' pb='30px'>
         <Text textColor='whiteAlpha.800' marginRight='10px'>
           Members:{' '}
         </Text>
@@ -100,6 +105,4 @@ const ItemInfo = ({ item }) => {
       </Stack>
     </VStack>
   );
-};
-
-export default ItemInfo;
+});
