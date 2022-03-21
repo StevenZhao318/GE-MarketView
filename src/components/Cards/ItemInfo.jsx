@@ -16,9 +16,11 @@ import { fetchItemInfo } from '../../api';
 import { itemNames, nameToID } from '../../data/ItemList';
 import MembersIcon from '../../assets/members-icon.png';
 import NonMembersIcon from '../../assets/nonmembers-icon.png';
+import ExternalLinkButton from 'components/ExternalLinkButton';
 
 export default chakra(function ItemInfo({ item, className }) {
   const [itemSummary, setItemSummary] = useState({});
+  const [loaded, setLoaded] = useState(false);
 
   const getIconFromID = (id) => {
     const endpoint = 'https://www.osrsbox.com/osrsbox-db/items-icons/';
@@ -30,11 +32,13 @@ export default chakra(function ItemInfo({ item, className }) {
     const fetchAPI = async () => {
       const itemID = nameToID[item];
       const data = await fetchItemInfo(itemID);
-      setItemSummary(data);
+      if (data) {
+        setLoaded(true);
+        setItemSummary(data);
+      }
     };
     fetchAPI();
-    console.log(itemSummary);
-  }, [item]);
+  }, [item, loaded]);
 
   return (
     <VStack
@@ -51,10 +55,10 @@ export default chakra(function ItemInfo({ item, className }) {
       <Box h='45px'>{getIconFromID(itemSummary.id)}</Box>
 
       <Text textColor='whiteAlpha.800'>
-        High Alch Value: {itemSummary.highalch?.toLocaleString()}
+        High Alch: {itemSummary.highalch?.toLocaleString()}
       </Text>
       <Text textColor='whiteAlpha.800'>
-        Low Alch Value: {itemSummary.lowalch?.toLocaleString()}
+        Low Alch: {itemSummary.lowalch?.toLocaleString()}
       </Text>
       <Text textColor='whiteAlpha.800'>
         Buy Limit: {itemSummary.buy_limit?.toLocaleString()}
@@ -64,44 +68,30 @@ export default chakra(function ItemInfo({ item, className }) {
         <Text textColor='whiteAlpha.800' marginRight='10px'>
           Members:{' '}
         </Text>
-        {itemSummary.members ? (
-          <Image src={MembersIcon} h='15px' alignSelf='center' />
+        {itemSummary?.members ? (
+          <>
+            <Image src={MembersIcon} h='15px' alignSelf='center' />
+            <Heading>Members</Heading>
+          </>
         ) : (
           <Image src={NonMembersIcon} h='15px' alignSelf='center' />
         )}
       </Flex>
 
       <Stack maxW='150px' spacing='10px' justifyContent='center' display='flex'>
-        <Button>
-          <Link
-            w='100px'
-            color='blue.600'
-            href={itemSummary.wiki_url}
-            isExternal
-          >
-            Wiki URL <ExternalLinkIcon mx='2px' marginBottom='5px' />
-          </Link>
-        </Button>
-        <Button>
-          <Link
-            w='100px'
-            color='blue.600'
-            href={`https://prices.runescape.wiki/osrs/item/${itemSummary.id}`}
-            isExternal
-          >
-            Live Prices <ExternalLinkIcon mx='2px' marginBottom='5px' />
-          </Link>
-        </Button>
-        <Button>
-          <Link
-            w='100px'
-            color='blue.600'
-            href={`https://secure.runescape.com/m=itemdb_oldschool/viewitem?obj=${itemSummary.id}`}
-            isExternal
-          >
-            Official <ExternalLinkIcon mx='2px' marginBottom='5px' />
-          </Link>
-        </Button>
+        <ExternalLinkButton linkTo={itemSummary.wiki_url}>
+          Wiki URL
+        </ExternalLinkButton>
+        <ExternalLinkButton
+          linkTo={`https://prices.runescape.wiki/osrs/item/${itemSummary.id}`}
+        >
+          Live Prices
+        </ExternalLinkButton>
+        <ExternalLinkButton
+          linkTo={`https://secure.runescape.com/m=itemdb_oldschool/viewitem?obj=${itemSummary.id}`}
+        >
+          Official
+        </ExternalLinkButton>
       </Stack>
     </VStack>
   );

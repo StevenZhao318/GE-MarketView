@@ -7,14 +7,14 @@ import { Box } from '@chakra-ui/react';
 
 import { itemNames, nameToID } from '../../data/ItemList';
 
-require('highcharts/indicators/indicators')(Highcharts);
-require('highcharts/indicators/trendline')(Highcharts);
+// require('highcharts/indicators/indicators')(Highcharts);
+// require('highcharts/indicators/trendline')(Highcharts);
 
 const color = '#3375cc';
 
 const options = {
   title: {
-    text: 'My chart',
+    text: 'Item',
     y: 35,
     style: {
       fontSize: '26px',
@@ -138,47 +138,49 @@ const Chart = ({ itemID }) => {
       // console.log('itemID is: ' + ID + ' for item ->' + itemID);
       const rawData = await fetchRawData(ID);
 
-      const data = rawData[ID].map((obj) => [obj.timestamp, obj.price]);
-      const volume = rawData[ID].map((obj) => [obj.timestamp, obj.volume]);
+      if (rawData) {
+        const data = rawData[ID].map((obj) => [obj.timestamp, obj.price]);
+        const volume = rawData[ID].map((obj) => [obj.timestamp, obj.volume]);
 
-      setChartOptions({
-        ...chartOptions,
-        title: {
-          text: itemID,
-        },
-        series: [
-          {
-            data: data,
-            type: 'spline',
-            name: itemID,
-            id: itemID,
-            // showCheckbox: true,
-            // selected: true,
-            color: color,
+        setChartOptions({
+          ...chartOptions,
+          title: {
+            text: itemID,
           },
-          {
-            type: 'area',
-            name: 'Volume',
-            lineWidth: 1,
-            crisp: false,
-            data: volume,
-            color: '#75CC33',
-            yAxis: 1,
-          },
-          // {
-          //   type: 'sma',
-          //   color: '#CC3375',
-          //   name: '30-Day Average',
-          //   linkedTo: itemID,
-          //   dashStyle: 'ShortDash',
-          //   params: {
-          //     period: 30,
-          //   },
-          //   yAxis: 0,
-          //   zAxis: 2,
-          // },
-        ],
-      });
+          series: [
+            {
+              data: data,
+              type: 'spline',
+              name: itemID,
+              id: itemID,
+              // showCheckbox: true,
+              // selected: true,
+              color: color,
+            },
+            {
+              type: 'area',
+              name: 'Volume',
+              lineWidth: 1,
+              crisp: false,
+              data: volume,
+              color: '#75CC33',
+              yAxis: 1,
+            },
+            // {
+            //   type: 'sma',
+            //   color: '#CC3375',
+            //   name: '30-Day Average',
+            //   linkedTo: itemID,
+            //   dashStyle: 'ShortDash',
+            //   params: {
+            //     period: 30,
+            //   },
+            //   yAxis: 0,
+            //   zAxis: 2,
+            // },
+          ],
+        });
+      }
     };
     fetchAPI();
   }, [itemID]);

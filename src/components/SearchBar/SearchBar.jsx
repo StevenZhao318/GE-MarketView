@@ -51,9 +51,7 @@ const useStyles = makeStyles({
 
 const getIconFromID = (id) => {
   const endpoint = 'https://www.osrsbox.com/osrsbox-db/items-icons/';
-  return (
-    <img src={endpoint + id + '.png'} alt='iconImage' width='28' height='28' />
-  );
+  return <img src={endpoint + id + '.png'} width='28' height='28' />;
 };
 
 export default chakra(function SearchBar({ handleItemsChange, className }) {
